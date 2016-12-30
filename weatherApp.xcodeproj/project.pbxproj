@@ -7,14 +7,19 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		043F10181E15D59E00BA986D /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043F10171E15D59E00BA986D /* DetailViewController.swift */; };
+		043F101A1E15D98C00BA986D /* WeatherData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043F10191E15D98C00BA986D /* WeatherData.swift */; };
 		04F612021E0F64130043B79E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F612011E0F64130043B79E /* AppDelegate.swift */; };
 		04F612041E0F64130043B79E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F612031E0F64130043B79E /* ViewController.swift */; };
 		04F612071E0F64130043B79E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04F612051E0F64130043B79E /* Main.storyboard */; };
 		04F612091E0F64130043B79E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 04F612081E0F64130043B79E /* Assets.xcassets */; };
 		04F6120C1E0F64130043B79E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04F6120A1E0F64130043B79E /* LaunchScreen.storyboard */; };
+		04F612141E0F646F0043B79E /* WeatherViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F612131E0F646F0043B79E /* WeatherViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		043F10171E15D59E00BA986D /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		043F10191E15D98C00BA986D /* WeatherData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeatherData.swift; sourceTree = "<group>"; };
 		04F611FE1E0F64130043B79E /* weatherApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = weatherApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		04F612011E0F64130043B79E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		04F612031E0F64130043B79E /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -22,6 +27,7 @@
 		04F612081E0F64130043B79E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		04F6120B1E0F64130043B79E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		04F6120D1E0F64130043B79E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		04F612131E0F646F0043B79E /* WeatherViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeatherViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,11 +61,14 @@
 			isa = PBXGroup;
 			children = (
 				04F612011E0F64130043B79E /* AppDelegate.swift */,
+				04F612131E0F646F0043B79E /* WeatherViewCell.swift */,
 				04F612031E0F64130043B79E /* ViewController.swift */,
 				04F612051E0F64130043B79E /* Main.storyboard */,
+				043F10171E15D59E00BA986D /* DetailViewController.swift */,
 				04F612081E0F64130043B79E /* Assets.xcassets */,
 				04F6120A1E0F64130043B79E /* LaunchScreen.storyboard */,
 				04F6120D1E0F64130043B79E /* Info.plist */,
+				043F10191E15D98C00BA986D /* WeatherData.swift */,
 			);
 			path = weatherApp;
 			sourceTree = "<group>";
@@ -136,8 +145,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				04F612141E0F646F0043B79E /* WeatherViewCell.swift in Sources */,
+				043F101A1E15D98C00BA986D /* WeatherData.swift in Sources */,
 				04F612041E0F64130043B79E /* ViewController.swift in Sources */,
 				04F612021E0F64130043B79E /* AppDelegate.swift in Sources */,
+				043F10181E15D59E00BA986D /* DetailViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -299,6 +311,7 @@
 				04F612121E0F64130043B79E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
