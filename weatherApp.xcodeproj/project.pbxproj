@@ -15,6 +15,7 @@
 		04F612091E0F64130043B79E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 04F612081E0F64130043B79E /* Assets.xcassets */; };
 		04F6120C1E0F64130043B79E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04F6120A1E0F64130043B79E /* LaunchScreen.storyboard */; };
 		04F612141E0F646F0043B79E /* WeatherViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F612131E0F646F0043B79E /* WeatherViewCell.swift */; };
+		04FC68E01E1C7E2B001FBFF8 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FC68DF1E1C7E2B001FBFF8 /* SettingsViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		04F6120B1E0F64130043B79E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		04F6120D1E0F64130043B79E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		04F612131E0F646F0043B79E /* WeatherViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeatherViewCell.swift; sourceTree = "<group>"; };
+		04FC68DF1E1C7E2B001FBFF8 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,6 +71,7 @@
 				04F6120A1E0F64130043B79E /* LaunchScreen.storyboard */,
 				04F6120D1E0F64130043B79E /* Info.plist */,
 				043F10191E15D98C00BA986D /* WeatherData.swift */,
+				04FC68DF1E1C7E2B001FBFF8 /* SettingsViewController.swift */,
 			);
 			path = weatherApp;
 			sourceTree = "<group>";
@@ -100,11 +103,12 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0810;
-				LastUpgradeCheck = 0810;
+				LastUpgradeCheck = 0820;
 				ORGANIZATIONNAME = "Tiago Henrique";
 				TargetAttributes = {
 					04F611FD1E0F64130043B79E = {
 						CreatedOnToolsVersion = 8.1;
+						DevelopmentTeam = 7TW6282C6A;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -150,6 +154,7 @@
 				04F612041E0F64130043B79E /* ViewController.swift in Sources */,
 				04F612021E0F64130043B79E /* AppDelegate.swift in Sources */,
 				043F10181E15D59E00BA986D /* DetailViewController.swift in Sources */,
+				04FC68E01E1C7E2B001FBFF8 /* SettingsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -193,6 +198,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -215,7 +221,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -243,6 +249,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -259,7 +266,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
@@ -272,7 +279,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 7TW6282C6A;
 				INFOPLIST_FILE = weatherApp/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = coutocode.weatherApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -284,7 +293,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 7TW6282C6A;
 				INFOPLIST_FILE = weatherApp/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = coutocode.weatherApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";

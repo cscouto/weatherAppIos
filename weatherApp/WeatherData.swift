@@ -18,8 +18,8 @@ class WeatherData {
     var cloudiness: String!
     var pressure: String!
     var humidity: String!
-    var sunrise: String!
-    var sunset: String!
+    var image: String!
+    
     
     init() {
         info = ""
@@ -32,7 +32,6 @@ class WeatherData {
         cloudiness = ""
         pressure = ""
         humidity = ""
-        sunrise = ""
-        sunset = ""
+        image = ""
     }
 }

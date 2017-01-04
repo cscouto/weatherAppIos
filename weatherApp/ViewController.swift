@@ -18,18 +18,26 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.tableView.delegate = self
-        self.tableView.dataSource = self
-        loadData()
+        
         
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.tableView.delegate = self
+        self.tableView.dataSource = self
+        loadData()
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let dataDetail = segue.destination as! DetailViewController
-        dataDetail.weatherData = self.weatherData
+        if segue.identifier == "segueDetail"{
+            let dataDetail = segue.destination as! DetailViewController
+            dataDetail.weatherData = self.weatherData
+        }
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.weatherData = weathers[indexPath.item]
         self.performSegue(withIdentifier: "segueDetail", sender: self)
     }
     
@@ -47,6 +55,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     func loadData() {
         
+        weathers.removeAll()
+        
         let url = URL(string: "http://api.openweathermap.org/data/2.5/forecast/daily?q=14752&units=metric&cnt=16&APPID=809ca8d83020431d08cf4a78c95c5909")
         
         
@@ -56,32 +66,39 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 print("error=\(error)")
                 return
             }
-            
-            var finalString: String
-            
+
             do{
+                var location: String = ""
                 let jsonResult = try JSONSerialization.jsonObject(with: data!, options: [])
                 print(jsonResult)
                 if let dictionary = jsonResult as? [String: Any]{
                     if let city = dictionary["city"] as? [String: Any]{
-                        let location = city["name"]!
+                        location = "Hello, \(city["name"]!)"
                     }
                     if let days = dictionary["list"] as? [Any]{
                         for day in days{
-                            finalString = ""
+                            let weather = WeatherData()
+                            weather.location = location
                             if let info = day as? [String: Any]{
-                                let day = info["dt"]!
+                                weather.day = "\(info["dt"]!)"
+                                weather.wind = "\(info["speed"]!)"
+                                weather.cloudiness = "\(info["clouds"]!)"
+                                weather.pressure =  "\(info["pressure"]!)"
+                                weather.humidity =  "\(info["humidity"]!)"
+                                
                                 if let temp = info["temp"] as? [String: Any]{
                                     for item in temp{
                                         if item.key == "day"{
-                                            let temperature = "\(item.value)"
+                                            weather.temperature = "\(item.value) C"
                                         }
                                         if item.key == "min"{
-                                            finalString = "\(item.value)"
+                                            weather.info = "\(item.value)"
+                                            weather.min = "\(item.value)"
                                         }
                                          
                                         if item.key == "max"{
-                                            finalString = finalString+" / "+"\(item.value)"
+                                            weather.info = weather.info+" / "+"\(item.value)"
+                                            weather.max = "\(item.value)"
                                         }
                                     }
                                     
@@ -90,18 +107,17 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                             
                              if let infoWeather = day as? [String: Any]{
                              
-                                if let weather = infoWeather["weather"] as? [Any]{
-                                    if let weatherDay = weather.first as? [String: Any]{
+                                if let weather2 = infoWeather["weather"] as? [Any]{
+                                    if let weatherDay = weather2.first as? [String: Any]{
                                         for item in weatherDay{
                                             if item.key == "main"{
-                                                finalString = finalString+" "+"\(item.value)"
+                                                weather.info = weather.info+" "+"\(item.value)"
+                                                weather.image = "\(item.value)"
                                             }
                                         }
                                     }
                                 }
                              }
-                            let weather = WeatherData()
-                            weather.info = finalString
                             self.weathers.append(weather)
                         }
                     }

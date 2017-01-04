@@ -10,6 +10,7 @@ import UIKit
 
 class DetailViewController: UIViewController {
     
+    @IBOutlet var image: UIImageView!
     var weatherData: WeatherData!
     @IBOutlet var location: UILabel!
     @IBOutlet var day: UILabel!
@@ -20,13 +21,22 @@ class DetailViewController: UIViewController {
     @IBOutlet var cloudiness: UILabel!
     @IBOutlet var pressure: UILabel!
     @IBOutlet var humidity: UILabel!
-    @IBOutlet var sunrise: UILabel!
-    @IBOutlet var sunset: UILabel!
+  
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        
+        location.text = weatherData.location
+        day.text = weatherData.day
+        temperature.text = weatherData.temperature
+        min.text = weatherData.min
+        max.text = weatherData.max
+        wind.text = weatherData.wind
+        cloudiness.text = weatherData.cloudiness
+        pressure.text = weatherData.pressure
+        humidity.text = weatherData.humidity
+        print(" Hello \(weatherData.image)")
+        image.image = UIImage(named: weatherData.image)
     }
 
 }
