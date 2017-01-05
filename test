@@ -1,0 +1,36 @@
+var setCode: String!
+        var setunit: String!
+        
+        if let zipcode = UserDefaults.standard.string(forKey: "zipcode"){
+            setCode = zipcode
+        }else{
+            setCode = "14752"
+        }
+        
+        if let unit: Int = UserDefaults.standard.integer(forKey: "unit"){
+            if unit == 0 {
+                setunit = "metric"
+            }else{
+                setunit = "imperial"
+            }
+            
+        }else{
+            setCode = "metric"
+        }
+        
+        let url = URL(string: "http://api.openweathermap.org/data/2.5/forecast/daily?q=\(setCode!)&units=\(setunit!)&cnt=16&APPID=809ca8d83020431d08cf4a78c95c5909")
+        
+
+
+override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        self.zipcode.text = UserDefaults.standard.string(forKey: "zipcode")
+        self.type.selectedSegmentIndex = UserDefaults.standard.integer(forKey: "unit")
+        
+    }
+    
+    @IBAction func saveStatus(_ sender: Any) {
+        UserDefaults.standard.set(zipcode.text, forKey: "zipcode")
+        UserDefaults.standard.set(type.selectedSegmentIndex, forKey: "unit")
+    }
