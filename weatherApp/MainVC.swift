@@ -8,7 +8,8 @@
 
 import UIKit
 
-class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
+    
     
     @IBOutlet var tableView: UITableView!
     
@@ -31,7 +32,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "segueDetail"{
-            let dataDetail = segue.destination as! DetailViewController
+            let dataDetail = segue.destination as! DetailVC
             dataDetail.weatherData = self.weatherData
         }
     }
@@ -48,8 +49,11 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = self.tableView.dequeueReusableCell(withIdentifier: "weatherCell", for: indexPath) as! WeatherViewCell
         
-        cell.weatherDay.text = weathers[indexPath.item].info
-        
+        cell.day.text = weathers[indexPath.row].day
+        cell.max.text = weathers[indexPath.row].max
+        cell.min.text = weathers[indexPath.row].min
+        cell.weather.text = weathers[indexPath.row].info
+        cell.weatherImg.image = UIImage(named: weathers[indexPath.row].image+" Mini")
         return cell
     }
     
@@ -92,12 +96,10 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                                             weather.temperature = "\(item.value) C"
                                         }
                                         if item.key == "min"{
-                                            weather.info = "\(item.value)"
                                             weather.min = "\(item.value)"
                                         }
                                          
                                         if item.key == "max"{
-                                            weather.info = weather.info+" / "+"\(item.value)"
                                             weather.max = "\(item.value)"
                                         }
                                     }
@@ -111,7 +113,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                                     if let weatherDay = weather2.first as? [String: Any]{
                                         for item in weatherDay{
                                             if item.key == "main"{
-                                                weather.info = weather.info+" "+"\(item.value)"
+                                                weather.info = "\(item.value)"
                                                 weather.image = "\(item.value)"
                                             }
                                         }

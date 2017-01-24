@@ -8,7 +8,7 @@
 
 import UIKit
 
-class DetailViewController: UIViewController {
+class DetailVC: UIViewController {
     
     @IBOutlet var image: UIImageView!
     var weatherData: WeatherData!

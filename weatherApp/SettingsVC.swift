@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SettingsViewController: UIViewController {
+class SettingsVC: UIViewController {
 
     @IBOutlet var zipcode: UITextField!
     @IBOutlet var type: UISegmentedControl!
