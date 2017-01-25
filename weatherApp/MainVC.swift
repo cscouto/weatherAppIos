@@ -85,7 +85,24 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         
         weathers.removeAll()
         
-        let url = URL(string: "http://api.openweathermap.org/data/2.5/forecast/daily?q=14752&units=metric&cnt=16&APPID=809ca8d83020431d08cf4a78c95c5909")
+        var zipcode: String!
+        var measureV: String!
+        
+        if let zip = UserDefaults().string(forKey: "zipcode"){
+            zipcode = "\(zip)"
+        }else{
+            zipcode = "14752"
+        }
+        
+        let measure = UserDefaults().integer(forKey: "type")
+        
+        if measure == 0{
+            measureV = "metric"
+        }else{
+            measureV = "imperial"
+        }
+        
+        let url = URL(string: "http://api.openweathermap.org/data/2.5/forecast/daily?q=\(zipcode)&units=\(measureV)&cnt=16&APPID=809ca8d83020431d08cf4a78c95c5909")
         
         
         let task = URLSession.shared.dataTask(with: url!) {
@@ -98,7 +115,6 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
             do{
                 var location: String = ""
                 let jsonResult = try JSONSerialization.jsonObject(with: data!, options: [])
-                print(jsonResult)
                 if let dictionary = jsonResult as? [String: Any]{
                     if let city = dictionary["city"] as? [String: Any]{
                         location = "\(city["name"]!)"
@@ -152,10 +168,19 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                 
             }
             DispatchQueue.main.sync(execute: {
+                
+                let temp = self.weathers[0].temperature
+                
+                if (temp?.characters.count)! > 6 {
+                    self.currentDegree.text = (temp?.substring(to: (temp?.index((temp?.startIndex)!, offsetBy: 6))!))! + "°"
+                }else{
+                    self.currentDegree.text = temp! + "°"
+                }
+                
                 self.currentDesc.text = self.weathers[0].info!
                 self.currentImage.image = UIImage(named: self.weathers[0].image!)
                 self.currentLocation.text = self.weathers[0].location
-                self.currentDegree.text = self.weathers[0].temperature
+                
                 self.tableView.reloadData()
             })
             
