@@ -49,7 +49,7 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        self.weatherData = weathers[indexPath.item]
+        self.weatherData = weathers[indexPath.row + 1]
         self.performSegue(withIdentifier: "segueDetail", sender: self)
     }
     
@@ -95,14 +95,20 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         }
         
         let measure = UserDefaults().integer(forKey: "type")
-        
-        if measure == 0{
-            measureV = "metric"
-        }else{
+
+        if measure == 1{
             measureV = "imperial"
+        }else{
+            measureV = "metric"
         }
         
-        let url = URL(string: "http://api.openweathermap.org/data/2.5/forecast/daily?q=\(zipcode)&units=\(measureV)&cnt=16&APPID=809ca8d83020431d08cf4a78c95c5909")
+        print(measureV)
+        print(zipcode)
+        
+        let stringUrl = "http://api.openweathermap.org/data/2.5/forecast/daily?q=\(zipcode!)&units=\(measureV!)&cnt=16&APPID=809ca8d83020431d08cf4a78c95c5909"
+        
+        print(stringUrl)
+        let url = URL(string: stringUrl)
         
         
         let task = URLSession.shared.dataTask(with: url!) {
@@ -124,7 +130,16 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                             let weather = WeatherData()
                             weather.location = location
                             if let info = day as? [String: Any]{
-                                weather.day = "\(info["dt"]!)"
+                                
+                                if let date = info["dt"] as? Double {
+                                    let unixcode = Date(timeIntervalSince1970: date)
+                                    let dateFormatter = DateFormatter()
+                                    dateFormatter.dateStyle = .full
+                                    dateFormatter.dateFormat = "EEEE"
+                                    dateFormatter.timeStyle = .none
+                                    weather.day = unixcode.dayOfTheWeek()
+                                }
+                                
                                 weather.wind = "\(info["speed"]!)"
                                 weather.cloudiness = "\(info["clouds"]!)"
                                 weather.pressure =  "\(info["pressure"]!)"
@@ -171,10 +186,12 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                 
                 let temp = self.weathers[0].temperature
                 
+                self.currentDegree.text = ""
+                
                 if (temp?.characters.count)! > 6 {
-                    self.currentDegree.text = (temp?.substring(to: (temp?.index((temp?.startIndex)!, offsetBy: 6))!))! + "°"
+                    self.currentDegree.text = (temp?.substring(to: (temp?.index((temp?.startIndex)!, offsetBy: 6))!))!
                 }else{
-                    self.currentDegree.text = temp! + "°"
+                    self.currentDegree.text = temp!
                 }
                 
                 self.currentDesc.text = self.weathers[0].info!
@@ -189,5 +206,16 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         
         task.resume()
     }
+    
+    
+}
+extension Date {
+    
+    func dayOfTheWeek() -> String {
+        let dateformatter = DateFormatter()
+        dateformatter.dateFormat = "EEEE"
+        return dateformatter.string(from: self)
+    }
+    
 }
 

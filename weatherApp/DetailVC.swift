@@ -38,5 +38,8 @@ class DetailVC: UIViewController {
         print(" Hello \(weatherData.image)")
         image.image = UIImage(named: weatherData.image)
     }
+    @IBAction func btnBackPressed(_ sender: UIButton) {
+        dismiss(animated: true, completion: nil)
+    }
 
 }
