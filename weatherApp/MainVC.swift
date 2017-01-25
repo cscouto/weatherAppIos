@@ -105,7 +105,7 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         print(measureV)
         print(zipcode)
         
-        let stringUrl = "http://api.openweathermap.org/data/2.5/forecast/daily?q=\(zipcode!)&units=\(measureV!)&cnt=16&APPID=809ca8d83020431d08cf4a78c95c5909"
+        let stringUrl = "http://api.openweathermap.org/data/2.5/forecast/daily?q=\(zipcode!)&units=\(measureV!)&cnt=7&APPID=809ca8d83020431d08cf4a78c95c5909"
         
         print(stringUrl)
         let url = URL(string: stringUrl)
