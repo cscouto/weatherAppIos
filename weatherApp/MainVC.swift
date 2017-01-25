@@ -13,13 +13,24 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet var tableView: UITableView!
     
+    @IBOutlet var currentDegree: UILabel!
+    @IBOutlet var currentImage: UIImageView!
+    @IBOutlet var currentDate: UILabel!
+    @IBOutlet var currentLocation: UILabel!
+    @IBOutlet var currentDesc: UILabel!
+    
+    
     var weatherData: WeatherData!
     var weathers = Array<WeatherData>()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let formatter = DateFormatter()
+        formatter.dateStyle = .long
         
+        let dateAsString = formatter.string(from: NSDate() as Date)
+        currentDate.text = dateAsString
         
     }
     
@@ -43,17 +54,30 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return weathers.count
+        return weathers.count - 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = self.tableView.dequeueReusableCell(withIdentifier: "weatherCell", for: indexPath) as! WeatherViewCell
         
-        cell.day.text = weathers[indexPath.row].day
-        cell.max.text = weathers[indexPath.row].max
-        cell.min.text = weathers[indexPath.row].min
-        cell.weather.text = weathers[indexPath.row].info
-        cell.weatherImg.image = UIImage(named: weathers[indexPath.row].image+" Mini")
+        let index = indexPath.row + 1
+        
+        let max = weathers[index].max
+        let min = weathers[index].min
+        
+        cell.day.text = weathers[index].day
+        if (max?.characters.count)! > 6 {
+            cell.max.text = (max?.substring(to: (max?.index((max?.startIndex)!, offsetBy: 6))!))! + "°"
+        }else{
+             cell.max.text = max! + "°"
+        }
+        if (min?.characters.count)! > 6 {
+            cell.min.text = (min?.substring(to: (min?.index((min?.startIndex)!, offsetBy: 6))!))! + "°"
+        }else{
+            cell.min.text = min! + "°"
+        }
+        cell.weather.text = weathers[index].info
+        cell.weatherImg.image = UIImage(named: weathers[index].image+" Mini")
         return cell
     }
     
@@ -77,7 +101,7 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                 print(jsonResult)
                 if let dictionary = jsonResult as? [String: Any]{
                     if let city = dictionary["city"] as? [String: Any]{
-                        location = "Hello, \(city["name"]!)"
+                        location = "\(city["name"]!)"
                     }
                     if let days = dictionary["list"] as? [Any]{
                         for day in days{
@@ -93,7 +117,7 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                                 if let temp = info["temp"] as? [String: Any]{
                                     for item in temp{
                                         if item.key == "day"{
-                                            weather.temperature = "\(item.value) C"
+                                            weather.temperature = "\(item.value) °"
                                         }
                                         if item.key == "min"{
                                             weather.min = "\(item.value)"
@@ -107,7 +131,7 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                                 }
                             }
                             
-                             if let infoWeather = day as? [String: Any]{
+                            if let infoWeather = day as? [String: Any]{
                              
                                 if let weather2 = infoWeather["weather"] as? [Any]{
                                     if let weatherDay = weather2.first as? [String: Any]{
@@ -119,7 +143,7 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                                         }
                                     }
                                 }
-                             }
+                            }
                             self.weathers.append(weather)
                         }
                     }
@@ -127,13 +151,18 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
             }catch{
                 
             }
+            DispatchQueue.main.sync(execute: {
+                self.currentDesc.text = self.weathers[0].info!
+                self.currentImage.image = UIImage(named: self.weathers[0].image!)
+                self.currentLocation.text = self.weathers[0].location
+                self.currentDegree.text = self.weathers[0].temperature
+                self.tableView.reloadData()
+            })
             
         }
-
+        
         
         task.resume()
-        
-        self.tableView.reloadData()
     }
 }
 
